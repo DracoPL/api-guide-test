@@ -1,0 +1,782 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Docplanner Integration API Guide</title><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"><style>@import url('https://fonts.googleapis.com/css?family=Roboto:400,700|Inconsolata|Raleway:200');.hljs-comment,.hljs-title{color:#8e908c}.hljs-variable,.hljs-attribute,.hljs-tag,.hljs-regexp,.ruby .hljs-constant,.xml .hljs-tag .hljs-title,.xml .hljs-pi,.xml .hljs-doctype,.html .hljs-doctype,.css .hljs-id,.css .hljs-class,.css .hljs-pseudo{color:#c82829}.hljs-number,.hljs-preprocessor,.hljs-pragma,.hljs-built_in,.hljs-literal,.hljs-params,.hljs-constant{color:#f5871f}.ruby .hljs-class .hljs-title,.css .hljs-rules .hljs-attribute{color:#eab700}.hljs-string,.hljs-value,.hljs-inheritance,.hljs-header,.ruby .hljs-symbol,.xml .hljs-cdata{color:#718c00}.css .hljs-hexcolor{color:#3e999f}.hljs-function,.python .hljs-decorator,.python .hljs-title,.ruby .hljs-function .hljs-title,.ruby .hljs-title .hljs-keyword,.perl .hljs-sub,.javascript .hljs-title,.coffeescript .hljs-title{color:#4271ae}.hljs-keyword,.javascript .hljs-function{color:#8959a8}.hljs{display:block;background:white;color:#4d4d4c;padding:.5em}.coffeescript .javascript,.javascript .xml,.tex .hljs-formula,.xml .javascript,.xml .vbscript,.xml .css,.xml .hljs-cdata{opacity:.5}.right .hljs-comment{color:#969896}.right .css .hljs-class,.right .css .hljs-id,.right .css .hljs-pseudo,.right .hljs-attribute,.right .hljs-regexp,.right .hljs-tag,.right .hljs-variable,.right .html .hljs-doctype,.right .ruby .hljs-constant,.right .xml .hljs-doctype,.right .xml .hljs-pi,.right .xml .hljs-tag .hljs-title{color:#c66}.right .hljs-built_in,.right .hljs-constant,.right .hljs-literal,.right .hljs-number,.right .hljs-params,.right .hljs-pragma,.right .hljs-preprocessor{color:#de935f}.right .css .hljs-rule .hljs-attribute,.right .ruby .hljs-class .hljs-title{color:#f0c674}.right .hljs-header,.right .hljs-inheritance,.right .hljs-name,.right .hljs-string,.right .hljs-value,.right .ruby .hljs-symbol,.right .xml .hljs-cdata{color:#b5bd68}.right .css .hljs-hexcolor,.right .hljs-title{color:#8abeb7}.right .coffeescript .hljs-title,.right .hljs-function,.right .javascript .hljs-title,.right .perl .hljs-sub,.right .python .hljs-decorator,.right .python .hljs-title,.right .ruby .hljs-function .hljs-title,.right .ruby .hljs-title .hljs-keyword{color:#81a2be}.right .hljs-keyword,.right .javascript .hljs-function{color:#b294bb}.right .hljs{display:block;overflow-x:auto;background:#1d1f21;color:#c5c8c6;padding:.5em;-webkit-text-size-adjust:none}.right .coffeescript .javascript,.right .javascript .xml,.right .tex .hljs-formula,.right .xml .css,.right .xml .hljs-cdata,.right .xml .javascript,.right .xml .vbscript{opacity:.5}body{color:black;background:white;font:400 14px / 1.42 'Roboto',Helvetica,sans-serif}header{border-bottom:1px solid #f2f2f2;margin-bottom:12px}h1,h2,h3,h4,h5{color:black;margin:12px 0}h1 .permalink,h2 .permalink,h3 .permalink,h4 .permalink,h5 .permalink{margin-left:0;opacity:0;transition:opacity .25s ease}h1:hover .permalink,h2:hover .permalink,h3:hover .permalink,h4:hover .permalink,h5:hover .permalink{opacity:1}.triple h1 .permalink,.triple h2 .permalink,.triple h3 .permalink,.triple h4 .permalink,.triple h5 .permalink{opacity:.15}.triple h1:hover .permalink,.triple h2:hover .permalink,.triple h3:hover .permalink,.triple h4:hover .permalink,.triple h5:hover .permalink{opacity:.15}h1{font:200 36px 'Raleway',Helvetica,sans-serif;font-size:36px}h2{font:200 36px 'Raleway',Helvetica,sans-serif;font-size:30px}h3{font-size:100%;text-transform:uppercase}h5{font-size:100%;font-weight:normal}p{margin:0 0 10px}p.choices{line-height:1.6}a{color:#428bca;text-decoration:none}li p{margin:0}hr.split{border:0;height:1px;width:100%;padding-left:6px;margin:12px auto;background-image:linear-gradient(to right, rgba(0,0,0,0) 20%, rgba(0,0,0,0.2) 51.4%, rgba(255,255,255,0.2) 51.4%, rgba(255,255,255,0) 80%)}dl dt{float:left;width:130px;clear:left;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700}dl dd{margin-left:150px}blockquote{color:rgba(0,0,0,0.5);font-size:15.5px;padding:10px 20px;margin:12px 0;border-left:5px solid #e8e8e8}blockquote p:last-child{margin-bottom:0}pre{background-color:#f5f5f5;padding:12px;border:1px solid #cfcfcf;border-radius:6px;overflow:auto}pre code{color:black;background-color:transparent;padding:0;border:none}code{color:#444;background-color:#f5f5f5;font:'Inconsolata',monospace;padding:1px 4px;border:1px solid #cfcfcf;border-radius:3px}ul,ol{padding-left:2em}table{border-collapse:collapse;border-spacing:0;margin-bottom:12px}table tr:nth-child(2n){background-color:#fafafa}table th,table td{padding:6px 12px;border:1px solid #e6e6e6}.text-muted{opacity:.5}.note,.warning{padding:.3em 1em;margin:1em 0;border-radius:2px;font-size:90%}.note h1,.warning h1,.note h2,.warning h2,.note h3,.warning h3,.note h4,.warning h4,.note h5,.warning h5,.note h6,.warning h6{font-family:200 36px 'Raleway',Helvetica,sans-serif;font-size:135%;font-weight:500}.note p,.warning p{margin:.5em 0}.note{color:black;background-color:#f0f6fb;border-left:4px solid #428bca}.note h1,.note h2,.note h3,.note h4,.note h5,.note h6{color:#428bca}.warning{color:black;background-color:#fbf1f0;border-left:4px solid #c9302c}.warning h1,.warning h2,.warning h3,.warning h4,.warning h5,.warning h6{color:#c9302c}header{margin-top:24px}nav{position:fixed;top:24px;bottom:0;overflow-y:auto}nav .resource-group{padding:0}nav .resource-group .heading{position:relative}nav .resource-group .heading .chevron{position:absolute;top:12px;right:12px;opacity:.5}nav .resource-group .heading a{display:block;color:black;opacity:.7;border-left:2px solid transparent;margin:0}nav .resource-group .heading a:hover{text-decoration:none;background-color:bad-color;border-left:2px solid black}nav ul{list-style-type:none;padding-left:0}nav ul a{display:block;font-size:13px;color:rgba(0,0,0,0.7);padding:8px 12px;border-top:1px solid #d9d9d9;border-left:2px solid transparent;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}nav ul a:hover{text-decoration:none;background-color:bad-color;border-left:2px solid black}nav ul>li{margin:0}nav ul>li:first-child{margin-top:-12px}nav ul>li:last-child{margin-bottom:-12px}nav ul ul a{padding-left:24px}nav ul ul li{margin:0}nav ul ul li:first-child{margin-top:0}nav ul ul li:last-child{margin-bottom:0}nav>div>div>ul>li:first-child>a{border-top:none}.preload *{transition:none !important}.pull-left{float:left}.pull-right{float:right}.badge{display:inline-block;float:right;min-width:10px;min-height:14px;padding:3px 7px;font-size:12px;color:#000;background-color:#f2f2f2;border-radius:10px;margin:-2px 0}.badge.get{color:#70bbe1;background-color:#d9edf7}.badge.head{color:#70bbe1;background-color:#d9edf7}.badge.options{color:#70bbe1;background-color:#d9edf7}.badge.put{color:#f0db70;background-color:#fcf8e3}.badge.patch{color:#f0db70;background-color:#fcf8e3}.badge.post{color:#93cd7c;background-color:#dff0d8}.badge.delete{color:#ce8383;background-color:#f2dede}.collapse-button{float:right}.collapse-button .close{display:none;color:#428bca;cursor:pointer}.collapse-button .open{color:#428bca;cursor:pointer}.collapse-button.show .close{display:inline}.collapse-button.show .open{display:none}.collapse-content{max-height:0;overflow:hidden;transition:max-height .3s ease-in-out}nav{width:220px}.container{max-width:940px;margin-left:auto;margin-right:auto}.container .row .content{margin-left:244px;width:696px}.container .row:after{content:'';display:block;clear:both}.container-fluid nav{width:22%}.container-fluid .row .content{margin-left:24%}.container-fluid.triple nav{width:16.5%;padding-right:1px}.container-fluid.triple .row .content{position:relative;margin-left:16.5%;padding-left:24px}.middle:before,.middle:after{content:'';display:table}.middle:after{clear:both}.middle{box-sizing:border-box;width:51.5%;padding-right:12px}.right{box-sizing:border-box;float:right;width:48.5%;padding-left:12px}.right a{color:#428bca}.right h1,.right h2,.right h3,.right h4,.right h5,.right p,.right div{color:white}.right pre{background-color:#1d1f21;border:1px solid #1d1f21}.right pre code{color:#c5c8c6}.right .description{margin-top:12px}.triple .resource-heading{font-size:125%}.definition{margin-top:12px;margin-bottom:12px}.definition .method{font-weight:bold}.definition .method.get{color:#2e8ab8}.definition .method.head{color:#2e8ab8}.definition .method.options{color:#2e8ab8}.definition .method.post{color:#56b82e}.definition .method.put{color:#b8a22e}.definition .method.patch{color:#b8a22e}.definition .method.delete{color:#b82e2e}.definition .uri{word-break:break-all;word-wrap:break-word}.definition .hostname{opacity:.5}.example-names{background-color:#eee;padding:12px;border-radius:6px}.example-names .tab-button{cursor:pointer;color:black;border:1px solid #ddd;padding:6px;margin-left:12px}.example-names .tab-button.active{background-color:#d5d5d5}.right .example-names{background-color:#444}.right .example-names .tab-button{color:white;border:1px solid #666;border-radius:6px}.right .example-names .tab-button.active{background-color:#5e5e5e}#nav-background{position:fixed;left:0;top:0;bottom:0;width:16.5%;padding-right:14.4px;background-color:#fbfbfb;border-right:1px solid #f0f0f0;z-index:-1}#right-panel-background{position:absolute;right:-12px;top:-12px;bottom:-12px;width:48.6%;background-color:#333;z-index:-1}@media (max-width:1200px){nav{width:198px}.container{max-width:840px}.container .row .content{margin-left:224px;width:606px}}@media (max-width:992px){nav{width:169.4px}.container{max-width:720px}.container .row .content{margin-left:194px;width:526px}}@media (max-width:768px){nav{display:none}.container{width:95%;max-width:none}.container .row .content,.container-fluid .row .content,.container-fluid.triple .row .content{margin-left:auto;margin-right:auto;width:95%}#nav-background{display:none}#right-panel-background{width:48.6%}}.back-to-top{position:fixed;z-index:1;bottom:0;right:24px;padding:4px 8px;color:rgba(0,0,0,0.5);background-color:#f2f2f2;text-decoration:none !important;border-top:1px solid #d9d9d9;border-left:1px solid #d9d9d9;border-right:1px solid #d9d9d9;border-top-left-radius:3px;border-top-right-radius:3px}.resource-group{padding:12px;margin-bottom:12px;background-color:white;border:1px solid #d9d9d9;border-radius:6px}.resource-group h2.group-heading,.resource-group .heading a{padding:12px;margin:-12px -12px 12px -12px;background-color:#f2f2f2;border-bottom:1px solid #d9d9d9;border-top-left-radius:6px;border-top-right-radius:6px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}.triple .content .resource-group{padding:0;border:none}.triple .content .resource-group h2.group-heading,.triple .content .resource-group .heading a{margin:0 0 12px 0;border:1px solid #d9d9d9}nav .resource-group .heading a{padding:12px;margin-bottom:0}nav .resource-group .collapse-content{padding:0}.action{margin-bottom:12px;padding:12px 12px 0 12px;overflow:hidden;border:1px solid transparent;border-radius:6px}.action h4.action-heading{padding:6px 12px;margin:-12px -12px 12px -12px;border-bottom:1px solid transparent;border-top-left-radius:6px;border-top-right-radius:6px;overflow:hidden}.action h4.action-heading .name{float:right;font-weight:normal;padding:6px 0}.action h4.action-heading .method{padding:6px 12px;margin-right:12px;border-radius:3px;display:inline-block}.action h4.action-heading .method.get{color:#fff;background-color:#337ab7}.action h4.action-heading .method.head{color:#fff;background-color:#337ab7}.action h4.action-heading .method.options{color:#fff;background-color:#337ab7}.action h4.action-heading .method.put{color:#fff;background-color:#ed9c28}.action h4.action-heading .method.patch{color:#fff;background-color:#ed9c28}.action h4.action-heading .method.post{color:#fff;background-color:#5cb85c}.action h4.action-heading .method.delete{color:#fff;background-color:#d9534f}.action h4.action-heading code{color:#444;background-color:#f5f5f5;border-color:#cfcfcf;font-weight:normal;word-break:break-all;display:inline-block;margin-top:2px}.action dl.inner{padding-bottom:2px}.action .title{border-bottom:1px solid white;margin:0 -12px -1px -12px;padding:12px}.action.get{border-color:#bce8f1}.action.get h4.action-heading{color:#337ab7;background:#d9edf7;border-bottom-color:#bce8f1}.action.head{border-color:#bce8f1}.action.head h4.action-heading{color:#337ab7;background:#d9edf7;border-bottom-color:#bce8f1}.action.options{border-color:#bce8f1}.action.options h4.action-heading{color:#337ab7;background:#d9edf7;border-bottom-color:#bce8f1}.action.post{border-color:#d6e9c6}.action.post h4.action-heading{color:#5cb85c;background:#dff0d8;border-bottom-color:#d6e9c6}.action.put{border-color:#faebcc}.action.put h4.action-heading{color:#ed9c28;background:#fcf8e3;border-bottom-color:#faebcc}.action.patch{border-color:#faebcc}.action.patch h4.action-heading{color:#ed9c28;background:#fcf8e3;border-bottom-color:#faebcc}.action.delete{border-color:#ebccd1}.action.delete h4.action-heading{color:#d9534f;background:#f2dede;border-bottom-color:#ebccd1}</style></head><body class="preload"><a href="#top" class="text-muted back-to-top"><i class="fa fa-toggle-up"></i>&nbsp;Back to top</a><div class="container"><div class="row"><nav><div class="resource-group"><div class="heading"><div class="chevron"><i class="open fa fa-angle-down"></i></div><a href="#basic-information">Basic Information</a></div><div class="collapse-content"><ul><li><a href="#header-general-assumptions">General Assumptions</a></li><li><a href="#header-recommended-order-of-calls">Recommended order of calls</a></li></ul></div></div><div class="resource-group"><div class="heading"><div class="chevron"><i class="open fa fa-angle-down"></i></div><a href="#authorization">Authorization</a></div><div class="collapse-content"><ul></ul></div></div><div class="resource-group"><div class="heading"><div class="chevron"><i class="open fa fa-angle-down"></i></div><a href="#facilities">Facilities</a></div><div class="collapse-content"><ul><li><a href="#header-how-to-get-list-of-facilities?">How to get list of facilities?</a></li><li><a href="#header-group-doctors">Group Doctors</a></li><li><a href="#header-group-addresses">Group Addresses</a></li></ul></div></div><div class="resource-group"><div class="heading"><div class="chevron"><i class="open fa fa-angle-down"></i></div><a href="#services">Services</a></div><div class="collapse-content"><ul><li><a href="#header-how-to-do-it-right?">How to do it right?</a></li><li><a href="#header-how-to-add-them?">How to add them?</a></li></ul></div></div><div class="resource-group"><div class="heading"><div class="chevron"><i class="open fa fa-angle-down"></i></div><a href="#calendar-configuration">Calendar Configuration</a></div><div class="collapse-content"><ul><li><a href="#header-break-during-the-day?">Break during the day?</a></li></ul></div></div><div class="resource-group"><div class="heading"><div class="chevron"><i class="open fa fa-angle-down"></i></div><a href="#bookings">Bookings</a></div><div class="collapse-content"><ul><li><a href="#header-facility-perspective">Facility Perspective</a></li><li><a href="#header-user-perspective">User perspective</a></li></ul></div></div><div class="resource-group"><div class="heading"><div class="chevron"><i class="open fa fa-angle-down"></i></div><a href="#real-time-communication">Real-time communication</a></div><div class="collapse-content"><ul><li><a href="#header-what-does-it-mean-in-practice?">What does it mean in practice?</a></li><li><a href="#header-risk-of-race-condition">Risk of race condition</a></li></ul></div></div><div class="resource-group"><div class="heading"><div class="chevron"><i class="open fa fa-angle-down"></i></div><a href="#patient-presence">Patient Presence</a></div><div class="collapse-content"><ul></ul></div></div><div class="resource-group"><div class="heading"><div class="chevron"><i class="open fa fa-angle-down"></i></div><a href="#faq">FAQ</a></div><div class="collapse-content"><ul></ul></div></div></nav><div class="content"><header><h1 id="top">Docplanner Integration API Guide</h1></header><p>The main purpose of this publication is to explain, using real-life examples, most repetable doubts regarding Integration with Docplanner services. It’s lecture allows to understand proper structure of calls, required to create a fully compatible solution with Docplanner API.  Each section described in the guide corresponds with similar one  in API Doc.</p>
+<blockquote>
+<p>*NOTICE! This document won’t replace detailed study of API documentation - it’s required to understand complete technical scope of all the calls to Docplanner API.  Full technical documentation is available <a href="here">http://docplanner.github.io/integrations-api-docs/master/</a>.</p>
+</blockquote>
+<section id="basic-information" class="resource-group"><h2 class="group-heading">Basic Information <a href="#basic-information" class="permalink">&para;</a></h2><h2 id="header-general-assumptions">General Assumptions <a class="permalink" href="#header-general-assumptions" aria-hidden="true">¶</a></h2>
+<p>Integration between Docplanner services and third-party software is meant to enable synchronization between systems in the key areas:</p>
+<ul>
+<li>
+<p>Availability of free slots presented by doctor or medical facility to online booking,</p>
+</li>
+<li>
+<p>Patient’s booking flow</p>
+</li>
+</ul>
+<p>Integration is based on calls to REST API endpoints. The only currently supported format is JSON. Each call has to contain header:</p>
+<pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json; charset=utf-8</span></code></pre>
+<p>Integration can be handled by PUSH (with events sent to desired 3rd party endpoint) and PULL notification queues.</p>
+<p>The most basic object, which is available via API is API Client. 3rd party can access it, by authorizing using Client Credentials. Exact method of authorization was described in details in API Documentation and in further section.  Access to API client is required to take any further steps towards creating new integration.</p>
+<p>Each call will always be based on basic structure:</p>
+<pre><code class="language-http">https://www.{domain}/api/v3/integration/{resource}</code></pre>
+<p>So for example for our polish domain, every call will start with:</p>
+<pre><code class="language-http">https://www.znanylekarz.pl/api/v3/integration/{resource}</code></pre>
+<p>What is very crucial, while approaching to create a new integration is the order of calls. There are 2 distinctive actions each 3rd party needs to take while configuring new profile:</p>
+<ul>
+<li>
+<p>Adding services to doctor’s profile (described in Services section)</p>
+</li>
+<li>
+<p>Adding configuration of schedule - possible only after adding services (described in Calendar Configuration section)</p>
+</li>
+</ul>
+<p>Each call to complete given first two steps needs to be taken is proper order.  But to start any more complicated logically actions, you need to have (and store!) most basic data, required to call Docplanner API - Facility (representing clinic profile), Doctor (list of all doctors in a facility/ facilities) and Addresses.</p>
+<p>Below you’ll find a simple explanation of particular stages with an illustration describing the logics:</p>
+<ol>
+<li>Get Facilities - required to get list of available via API Client clinics. The specific IDs will be used to all the other calls - they need to be mapped and stored in 3rd party database</li>
+<li>Get Doctors - returns list of all the doctors available via API and connected to facilities from step no 1. The specific IDs will be used to all the other calls - they need to be mapped and stored in 3rd party database</li>
+<li>Get Addresses - returns list of all the addresses of doctors in specific facilities. The specific IDs will be used to all the other calls - they need to be mapped and stored in 3rd party database.</li>
+</ol>
+<p><em>Already started to get tricky? Addresses are explained with real-life examples in section Addresses below</em></p>
+<p>Structure of each further call needs to be based of the 3  IDs mentioned above. If you already have those, below you’ll find a step-by-step guide, with our recommended order (it’s not the don’t treat it as the only source of truth, but once you’ll be completing the integration make sure each of elements is covered). Structure of given calls with detailed parameters explained can be found in sections below as well as our API Documentation.</p>
+<h2 id="header-recommended-order-of-calls">Recommended order of calls <a class="permalink" href="#header-recommended-order-of-calls" aria-hidden="true">¶</a></h2>
+<ol>
+<li>
+<p>Request for token</p>
+</li>
+<li>
+<p>GET Facilities</p>
+</li>
+<li>
+<p>GET Doctors</p>
+</li>
+<li>
+<p>GET Addresses</p>
+</li>
+<li>
+<p>GET Item Service List</p>
+</li>
+<li>
+<p>PUT Address Service</p>
+</li>
+<li>
+<p>PUT Slots</p>
+</li>
+<li>
+<p>POST/PUT/DELETE Slots (Booking Actions)</p>
+</li>
+<li>
+<p>(optional) POST/DELETE Patient Presence</p>
+</li>
+</ol>
+</section><section id="authorization" class="resource-group"><h2 class="group-heading">Authorization <a href="#authorization" class="permalink">&para;</a></h2><p>For authorization purposes we’re using industry standard - <strong>OAuth2 Protocol</strong>. To authorize you need set of <strong>Client Credentials</strong> (it’s the only grant type we’re currently supporting).</p>
+<p>The mechanism is quite simple - you need to call our authorization endpoint (example below), requesting for the token.</p>
+<pre><code class="language-http">https://www.{domain}/oauth/v2/token</code></pre>
+<p>The request needs to contain  set of Client Credentials - ClientID and Secret as well as proper grant_type and scope.</p>
+<blockquote>
+<p>You can get API credentials by requesting us - <a href="mailto:integrations@docplanner.com">integrations@docplanner.com</a> Applies to both to test and production environment.</p>
+</blockquote>
+<p>Here’s a sample request to authorize (point 1 from the Recommended order of calls list)</p>
+<pre><code class="language-http">curl -u {client_id}:{client_secret} https://www.{domain}/oauth/v2/token -d 'grant_type=client_credentials&amp;scope=integration'</code></pre>
+</section><section id="facilities" class="resource-group"><h2 class="group-heading">Facilities <a href="#facilities" class="permalink">&para;</a></h2><p>Once we’ll grant you access to API Client you’ll be able to perform several operations on all related objects. The most extensive one is a Facility (or clinic if you prefer).  There’s no limit of facilities among one API client - thanks to one set of Client Credentials you can access one facility, few facilities or a facility chain. The distinctive value which allows to identify a facility is facility_id. Each object (as one presented on image below) will have it’s unique ID.</p>
+<img src="../../images/facilities1.png" width="100%">
+<h2 id="header-how-to-get-list-of-facilities?">How to get list of facilities? <a class="permalink" href="#header-how-to-get-list-of-facilities?" aria-hidden="true">¶</a></h2>
+<p>No rocket science here - all you need to do is call proper endpoint:</p>
+<pre><code class="language-http">https://www.{domain}/api/v3/integration/facilities</code></pre>
+<p>In response you’ll get a list of IDs and Names of all the facilities linked to you API Client.</p>
+<h1 id="header-group-doctors">Group Doctors <a class="permalink" href="#header-group-doctors" aria-hidden="true">¶</a></h1>
+<p>With <strong>Facility_ID</strong> parameter, you are able to get further details, needed to move on with the integration. Next step should be getting list of doctors working within the facility. There are 2 restrictions which might limit the number of results - doctor needs to be our client with commercial profile and he needs to be linked to a facility. If you expect to fetch more doctors than our API returned - check FAQ section for troubleshooting.</p>
+<p>In order to get the list of doctors you need to call endpoint:</p>
+<pre><code class="language-http">https://www.{domain}/api/v3/integration/facilities/{facility_id}/doctors</code></pre>
+<p>The only required parameter is <strong>facility_id</strong>.</p>
+<p>In the response we’ll serve the list of doctors working in a facility with their <strong>doctor_ids</strong>, name and surname. Again - doctor_id is a unique value, each doctor profile has, it will always remain unchanged. There’s 1 to 1 relation - so each doctor will have separate, unique ID.</p>
+<p>Below you’ll find sample response:</p>
+<pre><code class="language-json">{
+  "<span class="hljs-attribute">_embedded</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">items</span>": <span class="hljs-value">[
+      {
+        "<span class="hljs-attribute">_links</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">self</span>": <span class="hljs-value">{
+            "<span class="hljs-attribute">href</span>": <span class="hljs-value"><span class="hljs-string">"/api/v3/integration/facilities/1/doctors/123"</span></span>,
+            "<span class="hljs-attribute">method</span>": <span class="hljs-value"><span class="hljs-string">"get"</span>
+          </span>}
+        </span>}</span>,
+        "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"123"</span></span>,
+        "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Doctor"</span></span>,
+        "<span class="hljs-attribute">surname</span>": <span class="hljs-value"><span class="hljs-string">"House"</span>
+      </span>},
+      {
+        "<span class="hljs-attribute">_links</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">self</span>": <span class="hljs-value">{
+            "<span class="hljs-attribute">href</span>": <span class="hljs-value"><span class="hljs-string">"/api/v3/integration/facilities/1/doctors/124"</span></span>,
+            "<span class="hljs-attribute">method</span>": <span class="hljs-value"><span class="hljs-string">"get"</span>
+          </span>}
+        </span>}</span>,
+        "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"124"</span></span>,
+        "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Doctor"</span></span>,
+        "<span class="hljs-attribute">surname</span>": <span class="hljs-value"><span class="hljs-string">"Who"</span>
+      </span>}
+    ]
+  </span>}
+</span>}</code></pre>
+<p>Once you have doctor_ids  you can use them for further calls. There’s one more related with doctor object. You can extend information you’re getting for additional parameters. To make it happen, you need to add a scope to the request, as follows:</p>
+<pre><code class="language-http">https://www.{domain}/api/v3/integration/facilities/{facility_id}/doctors/{doctor_id}{?with}</code></pre>
+<p>Using doctor_id you can  get 1 additional param:</p>
+<ul>
+<li><code>address.booking_extra_fields</code> - allows to check if NIN (any personal identification number used by local authorities) parameter will be required in booking flow - it’s an optional parameter, added on request.</li>
+</ul>
+<h1 id="header-group-addresses">Group Addresses <a class="permalink" href="#header-group-addresses" aria-hidden="true">¶</a></h1>
+<p>Address is a specific parameter which allows us to identify particular <strong>doctor</strong> in a specific <strong>facility</strong>, one can say that address parameter is a combination of doctor and facility object. One doctor can have multiple addresses but each will have unique <strong>address_id</strong>.  Since we’re already using <strong>doctor_id</strong> and <strong>facililty_id</strong> parameter - what’s the purpose of additional value used for the requests? Here’s the explanation:</p>
+<p>Let’s investigate a case of Test Hospital - there are 2 branches of the hospital in 2 separate locations (as on image below)</p>
+<img src="../../images/addresses1.png" width="100%">
+<p>Both of them have use the same <strong>facility_id</strong>. In order to identify which location you’re referring to we need <strong>address_id</strong> parameter.</p>
+<p>So if there’s a situation where doctor has 2 addresses in the same facility (showed below), <strong>address_id</strong> becomes unique identifier.</p>
+<img src="../../images/addresses2.png" width="100%">
+<p>Address is a doctor-specific attribute, so in order to get list of doctor’s addresses you need to call our endpoint:</p>
+<p>www.{domain}/api/v3/integration/facilities/{facility_id}/doctors/{doctor_id}/addresses</p>
+<p>Required parameters</p>
+<ul>
+<li>doctor_id</li>
+<li>facility_id</li>
+</ul>
+<p>In response, the API will return list of all addresses with their <strong>address_ids</strong> and location details</p>
+<pre><code class="language-json">{
+  "<span class="hljs-attribute">_items</span>": <span class="hljs-value">[
+    {
+      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"123"</span></span>,
+      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Test Hospital"</span></span>,
+      "<span class="hljs-attribute">post_code</span>": <span class="hljs-value"><span class="hljs-string">"02-691"</span></span>,
+      "<span class="hljs-attribute">street</span>": <span class="hljs-value"><span class="hljs-string">"Obrzezna"</span></span>,
+      "<span class="hljs-attribute">_links</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">doctor</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">href</span>": <span class="hljs-value"><span class="hljs-string">"/api/v3/integration/facilities/139878/doctors/11"</span></span>,
+          "<span class="hljs-attribute">method</span>": <span class="hljs-value"><span class="hljs-string">"get"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">facility</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">href</span>": <span class="hljs-value"><span class="hljs-string">"/api/v3/integration/facilities/139878"</span></span>,
+          "<span class="hljs-attribute">method</span>": <span class="hljs-value"><span class="hljs-string">"get"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">self</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">href</span>": <span class="hljs-value"><span class="hljs-string">"/api/v3/integration/facilities/139878/doctors/11/addresses/333"</span></span>,
+          "<span class="hljs-attribute">method</span>": <span class="hljs-value"><span class="hljs-string">"get"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">services</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">href</span>": <span class="hljs-value"><span class="hljs-string">"/api/v3/integration/facilities/139878/doctors/11/addresses/333/services"</span></span>,
+          "<span class="hljs-attribute">method</span>": <span class="hljs-value"><span class="hljs-string">"get"</span>
+        </span>}
+      </span>}
+    </span>}
+  ]
+</span>}</code></pre>
+</section><section id="services" class="resource-group"><h2 class="group-heading">Services <a href="#services" class="permalink">&para;</a></h2><p>The principals of this section are quite obvious. The goal is to add services to specific address and enable booking on a specific service in specific time slot.</p>
+<p><em>Already getting blurry? Here’s where the party starts 😃</em></p>
+<p>There are 2 types of services described in API Documentation - Item Services and Address Services. What do they stand for? Let’s start with most basic distinction:</p>
+<ul>
+<li>
+<p><strong>Item Services</strong> - they are our dictionary services - IDs are re-usable. In fact they are used for mapping second type of services:</p>
+</li>
+<li>
+<p><strong>Address Services</strong> - they are unique objects which are related only with one, specific address - once you’ll try to use address_service_id in any other address, than the one they’re related to, we’ll throw an error. After creating Address Service, you can use it for configuring slots in calendar and in booking flow</p>
+</li>
+</ul>
+<h2 id="header-how-to-do-it-right?">How to do it right? <a class="permalink" href="#header-how-to-do-it-right?" aria-hidden="true">¶</a></h2>
+<p>We strongly recommend using <strong>only dictionary services</strong> for any purpose (however it’s possible to use unique ones as well - more about it in the further paragraphs).  If you choose to follow recommended path, the process should be divided into 2 steps:</p>
+<ol>
+<li><strong>Get Item Service List</strong> - in order to get full dictionary of available services you need to call our endpoint</li>
+</ol>
+<pre><code class="language-http">www.{domain}/api/v3/integration/services</code></pre>
+<p>Below you’ll find sample of response:</p>
+<pre><code class="language-json">{
+  "<span class="hljs-attribute">_items</span>": <span class="hljs-value">[
+    {
+      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"1"</span></span>,
+      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"ablacja"</span>
+    </span>},
+    {
+      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"3"</span></span>,
+      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"ablacja serca"</span>
+    </span>},
+    {
+      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"5"</span></span>,
+      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"akupresura"</span>
+    </span>},
+    {
+      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"7"</span></span>,
+      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"akupunktura"</span>
+    </span>}
+  ]
+</span>}</code></pre>
+<p>IDs returned by Docplanner API (we call them <strong>item_service_ids</strong>) are unique and <strong>can be mapped</strong> to ones in 3rd party software, however they cannot be directly used to add a service or slot to doctor profile.</p>
+<h2 id="header-how-to-add-them?">How to add them? <a class="permalink" href="#header-how-to-add-them?" aria-hidden="true">¶</a></h2>
+<p>To add a service to doctor profile (or to be more specific - to desired address) you need to use POST method. The request should be sent to the endpoint:</p>
+<pre><code class="language-http">www.{domain}/api/v3/integration/facilities/{facility_id}/doctors/{doctor_id}/addresses/{address_id}/services</code></pre>
+<p>Required parameters are:</p>
+<ul>
+<li>
+<p>Facility_id</p>
+</li>
+<li>
+<p>Doctor_id</p>
+</li>
+<li>
+<p>Address_id</p>
+</li>
+</ul>
+<p>Request body should be structured as follows:</p>
+<pre><code class="language-json">{
+  "<span class="hljs-attribute">service_id</span>": <span class="hljs-value"><span class="hljs-string">"3"</span></span>,
+  "<span class="hljs-attribute">is_price_from</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+  "<span class="hljs-attribute">price</span>": <span class="hljs-value"><span class="hljs-number">500</span>
+</span>}</code></pre>
+<p>Used in the request parameters represents:</p>
+<ul>
+<li>
+<p>service_id - which stands for already described item_service_id</p>
+</li>
+<li>
+<p>is_price_from</p>
+</li>
+<li>
+<p>price</p>
+</li>
+</ul>
+<p>In response to successful request, we’ll return it’s ID - we call it <strong>address_service_id</strong>. Below an example:</p>
+<pre><code>Content-<span class="hljs-string">Type:</span> application/vnd.docplanner+json; charset=UTF-<span class="hljs-number">8</span>
+<span class="hljs-string">Location:</span> <span class="hljs-string">https:</span><span class="hljs-comment">//www.znanylekarz.pl/api/v3/integration/facilities/111/doctors/222/addresses/333/services/444</span></code></pre>
+<p>address_service_id, returned in response is unique and related to the specific address. It needs to be stored by 3rd party, since it’ll be needed to further operations - adding and modifying slots, as well as handling bookings. <strong>It cannot be re-used to any other doctor or address!</strong></p>
+<p>Once you successfully get address_service, you can conduct few more operations:</p>
+<ul>
+<li>
+<p><strong>GET</strong> address_services list - displaying current state of address services related with specific address</p>
+</li>
+<li>
+<p><strong>DELETE</strong> address_service</p>
+</li>
+<li>
+<p><strong>PATCH</strong> address_service - in order to modify <code>price</code> and <code>is_price_from</code> parameter</p>
+</li>
+</ul>
+<pre><code class="language-json">{
+  "<span class="hljs-attribute">price</span>": <span class="hljs-value"><span class="hljs-number">400</span></span>,
+  "<span class="hljs-attribute">is_price_from</span>": <span class="hljs-value"><span class="hljs-literal">false</span>
+</span>}</code></pre>
+<p>All of the calls should be requested on endpoint:</p>
+<pre><code class="language-http">www.{domain}/api/v3/integration/facilities/{facility_id}/doctors/{doctor_id}/addresses/{address_id}/services/{address_service_id}</code></pre>
+</section><section id="calendar-configuration" class="resource-group"><h2 class="group-heading">Calendar Configuration <a href="#calendar-configuration" class="permalink">&para;</a></h2><p>To add available time slots to calendar you need to complete all the steps up to this point. Adding them is a matter of calling endpoint with PUT method. It works to both add or replace slots for a specific date range.</p>
+<blockquote>
+<p><strong>NOTICE!</strong> You can only add slots up to 12 weeks ahead. You your request won’t fit in, you’ll receive an error.</p>
+</blockquote>
+<p>Here’s the endpoint you need to call:</p>
+<pre><code class="language-http">www.{domain}/api/v3/integration/facilities/{facility_id}/doctors/{doctor_id}/addresses/{address_id}/slots</code></pre>
+<p>Request body should contain following parameters:</p>
+<ul>
+<li>
+<p>start</p>
+</li>
+<li>
+<p>end</p>
+</li>
+<li>
+<p>address_service_id</p>
+</li>
+<li>
+<p>duration</p>
+</li>
+</ul>
+<p>and should be structured as follows:</p>
+<pre><code class="language-json">{
+    "<span class="hljs-attribute">slots</span>": <span class="hljs-value">[
+        {
+            "<span class="hljs-attribute">address_services</span>": <span class="hljs-value">[
+                {
+                    "<span class="hljs-attribute">address_service_id</span>": <span class="hljs-value"><span class="hljs-number">12345</span></span>,
+                    "<span class="hljs-attribute">duration</span>": <span class="hljs-value"><span class="hljs-number">30</span>
+                </span>}
+            ]</span>,
+            "<span class="hljs-attribute">end</span>": <span class="hljs-value"><span class="hljs-string">"2018-11-10T15:00:00+0200"</span></span>,
+            "<span class="hljs-attribute">start</span>": <span class="hljs-value"><span class="hljs-string">"2018-11-10T07:00:00+0200"</span>
+        </span>},
+        {
+            "<span class="hljs-attribute">address_services</span>": <span class="hljs-value">[
+                {
+                    "<span class="hljs-attribute">address_service_id</span>": <span class="hljs-value"><span class="hljs-number">67890</span></span>,
+                    "<span class="hljs-attribute">duration</span>": <span class="hljs-value"><span class="hljs-number">20</span>
+                </span>},
+                {
+                    "<span class="hljs-attribute">address_service_id</span>": <span class="hljs-value"><span class="hljs-number">45678</span></span>,
+                    "<span class="hljs-attribute">duration</span>": <span class="hljs-value"><span class="hljs-number">60</span>
+                </span>}
+            ]</span>,
+            "<span class="hljs-attribute">end</span>": <span class="hljs-value"><span class="hljs-string">"2018-11-14T19:00:00+0200"</span></span>,
+            "<span class="hljs-attribute">start</span>": <span class="hljs-value"><span class="hljs-string">"2018-11-14T16:00:00+0200"</span>
+        </span>}
+    ]
+</span>}</code></pre>
+<p>Let’s analyse given sample. By setting <code>start</code> and <code>end</code> parameters you specify the time range when the slots should appear as available for bookings - in given example, we’re notifying the application that on November 10th doctor is available for online booking between 7:00 and 15:00 and he accepts patients only for address_service_id = 12345. The daily schedule will be divided into 30 mins slots (thanks to <code>duration</code> parameter).</p>
+<p>On November 14th however, the doctor is up to bookings between 16:00 and 19:00 and he is able to service both address_service_id = 67890 - he needs 20 minutes for each patient (again -  duration) and address_service_id = 45678 - he needs 60 minutes for each patient.  Docplanner/Doctoralia application will divide the whole schedule into 20 minutes slots (using greatest common divisor to calculate most optimal schedule). If patient will book 60-mins service, we’ll simply hide 3 such time slots.</p>
+<p>It’s important to understand, that specific <code>address_service_id</code> attached to slots accordingly determines what services will be available for booking. In Docplanner/Doctoralia interface, on the first step of booking, we allow user to choose service from dropdown.  Below you’ll find an example of time slot with 6 address_services attached.</p>
+<img src="../../images/calendar-configuration1.png" width="100%">
+<h2 id="header-break-during-the-day?">Break during the day? <a class="permalink" href="#header-break-during-the-day?" aria-hidden="true">¶</a></h2>
+<p>What if there’s need of creating a break during the day?</p>
+<p>There’s a method such usecase. We call it calendar_breaks. You can use it for any purpose. Adding calendar break results with hiding any available slots in specific address. It can be achieved by calling our endpoint using POST method.</p>
+<pre><code class="language-http">www.{domain}/api/v3/integration/facilities/{facility_id}/doctors/{doctor_id}/addresses/{address_id}/breaks</code></pre>
+<p>Body needs to contain following parameters:</p>
+<ul>
+<li>
+<p>since - start of the break</p>
+</li>
+<li>
+<p>till - end of the break</p>
+</li>
+</ul>
+<pre><code class="language-json">{
+  "<span class="hljs-attribute">since</span>": <span class="hljs-value"><span class="hljs-string">"2018-11-10T13:00:00+0200"</span></span>,
+  "<span class="hljs-attribute">till</span>": <span class="hljs-value"><span class="hljs-string">"2018-11-10T14:00:00+0200"</span>
+</span>}</code></pre>
+<p>Once break is created, several operations can be performed:</p>
+<ul>
+<li><strong>GET</strong> list of calendar breaks - narrowed down by <code>since</code> and <code>till</code> parameters</li>
+</ul>
+<pre><code class="language-http">www.{domain}/api/v3/integration/facilities/{facility_id}/doctors/{doctor_id}/addresses/{address_id}/breaks{?since,till}</code></pre>
+<ul>
+<li>
+<p><strong>GET</strong> specific calendar break</p>
+</li>
+<li>
+<p><strong>DELETE</strong> specific calendar break</p>
+</li>
+</ul>
+<p>both to the same endpoint:</p>
+<pre><code class="language-http">www.{domain}/api/v3/integration/facilities/{facility_id}/doctors/{doctor_id}/addresses/{address_id}/breaks/{break_id}</code></pre>
+</section><section id="bookings" class="resource-group"><h2 class="group-heading">Bookings <a href="#bookings" class="permalink">&para;</a></h2><h2 id="header-facility-perspective">Facility Perspective <a class="permalink" href="#header-facility-perspective" aria-hidden="true">¶</a></h2>
+<p>There are few ways of booking a slot (or notifying Docplanner application about slot occupancy).</p>
+<p><strong>1</strong>. First one, described in API Documentation as <a href="http://docplanner.github.io/integrations-api-docs/master/#slots-book-a-slot-post" target="_blank">Book a slot</a> allows to use endpoint:</p>
+<pre><code class="language-http">www.{domain}/api/v3/integration/facilities/{facility_id}/doctors/{doctor_id}/addresses/{address_id}/slots/{start}/book</code></pre>
+<p>with patient data in request body:</p>
+<pre><code class="language-json">{
+  "<span class="hljs-attribute">address_service_id</span>": <span class="hljs-value"><span class="hljs-number">123</span></span>,
+  "<span class="hljs-attribute">is_returning</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
+  "<span class="hljs-attribute">patient</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Docplanner"</span></span>,
+    "<span class="hljs-attribute">surname</span>": <span class="hljs-value"><span class="hljs-string">"Patient"</span></span>,
+    "<span class="hljs-attribute">email</span>": <span class="hljs-value"><span class="hljs-string">"example@example.com"</span></span>,
+    "<span class="hljs-attribute">phone</span>": <span class="hljs-value"><span class="hljs-string">"+48123123123"</span></span>,
+    "<span class="hljs-attribute">birth_date</span>": <span class="hljs-value"><span class="hljs-string">"1985-01-01"</span></span>,
+    "<span class="hljs-attribute">nin</span>": <span class="hljs-value"><span class="hljs-string">"894237492"</span></span>,
+    "<span class="hljs-attribute">gender</span>": <span class="hljs-value"><span class="hljs-string">"m"</span>
+  </span>}
+</span>}</code></pre>
+<p>however due to privacy reasons, it’s recommended to use standard, fake patient data for each booking added.</p>
+<p><strong>2</strong>. Another <strong>recommended</strong> method of removing slot from doctor’s schedule is regenerating the calendar configuration, without the occupied slot. Let’s analyse the usecase:</p>
+<p>Polish doctor (doctor_id = 9876) working in facility (facility_id = 456) with address (address_id = 789) is available for online bookings on November 16th between 10:00 and 11:00. He has only one address_service with id = 123. A patient in a clinic books a 10 minutes slot between 10:30 and 10:40. Only required operation is replacing configuration for specific day. So the operation should be proceeded as follows:</p>
+<ul>
+<li><strong>PUT</strong> slots operation to endpoint:</li>
+</ul>
+<pre><code class="language-http">www.znanylekarz.pl/api/v3/integration/facilities/456/doctors/9876/addresses/789/slots</code></pre>
+<p>with body:</p>
+<pre><code class="language-json">{
+"<span class="hljs-attribute">slots</span>": <span class="hljs-value">[
+    {
+        "<span class="hljs-attribute">address_services</span>": <span class="hljs-value">[
+            {
+                "<span class="hljs-attribute">address_service_id</span>": <span class="hljs-value"><span class="hljs-number">123</span></span>,
+                "<span class="hljs-attribute">duration</span>": <span class="hljs-value"><span class="hljs-number">10</span>
+            </span>}
+        ]</span>,
+        "<span class="hljs-attribute">end</span>": <span class="hljs-value"><span class="hljs-string">"2018-11-16T10:30:00+0200"</span></span>,
+        "<span class="hljs-attribute">start</span>": <span class="hljs-value"><span class="hljs-string">"2018-11-16T10:00:00+0200"</span>
+    </span>},
+    {
+        "<span class="hljs-attribute">address_services</span>": <span class="hljs-value">[
+            {
+                "<span class="hljs-attribute">address_service_id</span>": <span class="hljs-value"><span class="hljs-number">123</span></span>,
+                "<span class="hljs-attribute">duration</span>": <span class="hljs-value"><span class="hljs-number">10</span>
+            </span>}
+        ]</span>,
+        "<span class="hljs-attribute">end</span>": <span class="hljs-value"><span class="hljs-string">"2018-11-16T11:00:00+0200"</span></span>,
+        "<span class="hljs-attribute">start</span>": <span class="hljs-value"><span class="hljs-string">"2018-11-16T10:40:00+0200"</span>
+    </span>}
+]</span>}</code></pre>
+<p>The call will result with replacing calendar configuration for the specific date without already taken slot.</p>
+<p><strong>3</strong>) Last option to handle bookings is using already described method - Calendar Breaks. Instead of regenerating the schedule, 3rd Party can PUT new calendar break instead.</p>
+<h2 id="header-user-perspective">User perspective <a class="permalink" href="#header-user-perspective" aria-hidden="true">¶</a></h2>
+<p>The flow from Docplanner/Doctoralia perspective is rather simple. In the booking flow thanks to the form user is submitting all information required to complete the process in 2 simple steps. At the end asynchronously slot-booked notification is dispatched either to PULL notifications queue or is being PUSHed to given endpoint.</p>
+<blockquote>
+<p><strong>NOTICE!</strong> Notification informing about booking is being sent only once. If the attempt to call 3rd party endpoint fails (didn’t get 2XX status code in response) - booking is automatically cancelled.</p>
+</blockquote>
+<p>In <code>slot-booked</code> request, we’re provided very broad range of information. Below you’ll find a sample of the body:</p>
+<pre><code class="language-json">{
+"name": "slot-booked",
+"data": {
+"facility": {
+    "id": "226402",
+    "name": "Test Hospital",
+    "_links": {
+        "self": {
+            "href": "/api/v3/integration/facilities/226402",
+            "method": "get"
+        },
+        "doctors": {
+            "href": "/api/v3/integration/facilities/226402/doctors",
+            "method": "get"
+        }
+    }
+},
+"doctor": {
+    "id": "161262",
+    "name": "John",
+    "surname": "Average",
+    "_links": {
+        "self": {
+            "href": "/api/v3/integration/facilities/226402/doctors/161262",
+            "method": "get"
+        },
+        "addresses": {
+            "href": "/api/v3/integration/facilities/226402/doctors/161262/addresses",
+            "method": "get"
+        }
+    }
+},
+"address": {
+    "id": "410150",
+    "name": "Test Hospital",
+    "street": "Obrzezna",
+    "_links": {
+        "self": {
+            "href": "/api/v3/integration/facilities/226402/doctors/161262/addresses/410150",
+            "method": "get"
+        },
+        "facility": {
+            "href": "/api/v3/integration/facilities/226402",
+            "method": "get"
+        },
+        "doctor": {
+            "href": "/api/v3/integration/facilities/226402/doctors/161262",
+            "method": "get"
+        }
+    }
+},
+"visit_booking": {
+    "id": "6263715",
+    "status": "booked",
+    "start_at": "2018-11-18T16:00:00+01:00",
+    "end_at": "2018-11-18T16:30:00+01:00",
+    "duration": "30",
+    "booked_by": "user", // or "doctor" or "integration"
+    "canceled_by": "",
+    "booked_at": "2018-11-14T14:38:19+02:00",
+    "address_service": {
+        "id": "243665",
+        "name": "USG",
+        "price": 50,
+        "is_price_from": false
+    },
+    "patient": {
+        "name": "Abraham",
+        "surname": "Lincoln",
+        "email": "example@example.com",
+        "phone": "+48123123123",
+        "birth_date": "1985-01-01",
+        "nin": "894237492",
+        "gender": "m" // or "f"
+    },
+    "comment": "Additional information about the visit"
+}
+},
+"created_at": "2018-11-14T14:38:32+02:00"
+}</code></pre>
+<p>Apart from the obvious data, already analysed in previous paragraphs (Facility, Doctor, Address), you’ll receive:</p>
+<ul>
+<li>
+<p>Detailed booking data - especially visit_booking_id is crucial, since it’s needed to modify the booking in case of such need</p>
+</li>
+<li>
+<p>Detailed patient data</p>
+</li>
+</ul>
+<p>Once you have <code>visit_booking_id</code> there are two operations possible - using endpoint:</p>
+<pre><code class="language-http">www.{domain}/api/v3/integration/facilities/{facility_id}/doctors/{doctor_id}/addresses/{address_id}/bookings/{booking_id}</code></pre>
+<p>You can either perform <strong>DELETE</strong> operation which end up with cancellation or <strong>POST</strong> in order to update (or move) visit. Body should contain start parameter indicating new time of visit start and address_service_id</p>
+<pre><code class="language-json">{
+  "<span class="hljs-attribute">address_service_id</span>": <span class="hljs-value"><span class="hljs-number">12345</span></span>,
+  "<span class="hljs-attribute">start</span>": <span class="hljs-value"><span class="hljs-string">"2018-11-26T16:00:00+01:00"</span>
+</span>}</code></pre>
+<blockquote>
+<p><strong>NOTICE!</strong> All the callbacks are described in details in our API documentation. The section can be found <a href="http://docplanner.github.io/integrations-api-docs/master/#api-notification-callbacks" target="_blank">here</a></p>
+</blockquote>
+</section><section id="real-time-communication" class="resource-group"><h2 class="group-heading">Real-time communication <a href="#real-time-communication" class="permalink">&para;</a></h2><p>By deafult, every API Client is configured to use asynchronous flow. We simply notify 3rd party about events that happened in Docplanner/Doctoralia marketplace. We expect that every request will be accepted (with 2XX status code) - if it fails, we simply retry to send the communicate again.</p>
+<h2 id="header-what-does-it-mean-in-practice?">What does it mean in practice? <a class="permalink" href="#header-what-does-it-mean-in-practice?" aria-hidden="true">¶</a></h2>
+<p>Let’s analyze booking. If real-time booking is disabled, when user books we doesn’t wait for the response from 3rd party system. If the slot appears as available we don’t have additional layer of checking if it’s still valid. So if a user books - we’ll send booking request (slot-booked) and display success screen to the user. It’ll happen even if the response to the request will result with 4XX or 5XX status code. We’ll retry sending the communicate 3 times - after minute, 5 minutes and 15 minutes.</p>
+<p>In practice - it’s not a problem. Usually situations when asynchronous flow causes trouble is when race-condition happens. If the clinic books a slot in the very same moment as Docplanner/Doctoralia user. It’s a super-rare edge case and doesn’t affect communication at all.</p>
+<h2 id="header-risk-of-race-condition">Risk of race condition <a class="permalink" href="#header-risk-of-race-condition" aria-hidden="true">¶</a></h2>
+<p>What if there’s a higher risk of race condition (huge clinic, lots of bookings)?</p>
+<p>Don’t worry - we have it covered. In justified cases we have real-time booking flow that is applicable per API Client (so doesn’t need to be software-specific setting). In real-time flow we add additional check with one more request sent to 3rd party endpoint at the end of booking flow.</p>
+<p>On the image below we’re described the flow:</p>
+<img src="../../images/real-time1.png" width="100%">
+<p>The additional call (<code>slot-booking</code>) is meant to double-check the availibility of slot. We’ll send it to the external system before displaying success screen (waiting for the response). The request expects 2XX status code to finish the transaction - with any other status code, we won’t allow user to complete the transaction by throwing an error.</p>
+<p>We enable real-time booking as a additional configuration on demand. If you want to use the method - contact us at <a href="mailto:integrations@docplanner.com">integrations@docplanner.com</a>.</p>
+<blockquote>
+<p><strong>NOTICE!</strong> Please remember that while waiting for the response we’ll keep the user on hold. Please make sure that while requesting for enabling real-time communication, your endpoint will be able to respond in maximum of 5 seconds!</p>
+</blockquote>
+</section><section id="patient-presence" class="resource-group"><h2 class="group-heading">Patient Presence <a href="#patient-presence" class="permalink">&para;</a></h2><p>Last but not least - there’s a new feature available in API v3, called Patient Presence. It’s purpose is notifying Docplanner/Doctoralia database if patient attended the visit. It’s quite useful for invoicing purposes, doctor isn’t charged for the visits that didn’t take place. This method is optional and doesn’t have to be implemented in Integration process.</p>
+<p>To mark patient presence, you need to call our endpoint:</p>
+<pre><code class="language-http">www.{domain}/api/v3/integration/facilities/{facility_id}/doctors/{doctor_id}/addresses/{address_id}/bookings/{booking_id}/presence/patient</code></pre>
+<p>Two operations are available: <strong>POST</strong> (to mark patient as present) and <strong>DELETE</strong> (indicating no-show).</p>
+</section><section id="faq" class="resource-group"><h2 class="group-heading">FAQ <a href="#faq" class="permalink">&para;</a></h2><p><h2><strong>I don’t see all the doctors expected while getting doctor’s list - what should I do?</strong></h2></p>
+<p>There are 2 situations where we might not return doctor in the response to GET request.</p>
+<p><strong>1) Doctor is not commercial</strong></p>
+<p>What does it mean? In order to launch calendar in our platform, doctor’s profile needs to be premium (paid). You can quite easily check it -&gt; just go to facility profile on Docplanner/Doctoralia service and check the list of doctors.  Make sure that doctor has <strong>GOLD</strong> badge</p>
+<img src="../../images/faq1.png" width="100%">
+<p><strong>2) Doctor is not linked to the clinic</strong></p>
+<p>In order to return doctor object in GET request, doctor needs to be linked to the clinic. There are 2 ways of verifying if that’s valid:</p>
+<p>Go to facility profile in Docplanner/Doctoralia service and check if doctor appears on the list of professionals:</p>
+<img src="../../images/faq2.png" width="100%">
+<p>If the desired professional doesn’t appear there - just go to his/her address edition section on individual doctor’s profile and check if the box “Copy address from facility profile” is checked.</p>
+<img src="../../images/faq3.png" width="100%">
+<p><h2>Address_ID I was using is no longer valid - what should I do?</h2></p>
+<p>When doctor has an active calendar, he cannot modify address information, however it’s possible from the interface level to shut down calendar and delete address. If that happens, address won’t be available from API level anymore. Once it happens and there’s no sign of an address in API Client and you’re sure that the facility or the doctor still wants to have his/her calendar integrated - you can either:</p>
+<ul>
+<li>
+<p>Reach us in order to restore old, deleted address</p>
+</li>
+<li>
+<p>Ask the doctor to add new address linked to desired facility and use new IDs to configure schedule once again (remember that both address_id and address_service_ids will be changed).</p>
+</li>
+</ul>
+<p><h2>I can’t delete address_service because it’s connected to calendar configuration. What to do?</h2></p>
+<p>Address services related to active slots in calendar are non-removable. If you’re trying to perform such operation you need to delete calendar configuration first (or at least it’s part where address_service_ids are used) - then perform DELETE operation.</p>
+<p><h2>Where can I check if I successfully added slots to calendar?</h2></p>
+<p>Slots added via API appear in calendar configuration of each doctor. You can check if they were added correctly by entering doctor’s profile ( you need login credentials or access granted by doctor).  They will appear in calendar section under “Exceptions” label (as on picture below)</p>
+<p>Look for exceptions:</p>
+<img src="../../images/faq4.png" width="100%">
+<p>After expanding you’ll be able to see specific dates with schedules:</p>
+<img src="../../images/faq5.png" width="100%">
+<p><h2>I want to flush calendar configuration - will it affect already booked visits?</h2></p>
+<p>No. Visits booked by patient via Docplanner/Doctoralia interface can be only removed by cancelling them. Flushing calendar configuration doesn’t affect visits.</p>
+<p><h2>Can I use OAuth Protocol to authorize Callbacks from DP API?</h2></p>
+<p>Not yet. Currently we don’t support authorization layer in callback communication. All of the requests are send from one IP address which can be restricted on 3rd party endpoint to add security layer. We also require using of endpoints signed with HTTPS certificates. Handling OAuth authorization is currently in progress and should be launched in the first half of 2019.</p>
+<p><h2>The visit was booked although I responded with 4XX or 5XX status code to slot-booked request. Why did it happened?</h2></p>
+<p>By deafult, API Clients are set to asynchronous communication. It means that the booking requests are in fact only notifications, send after successful booking via Docplanner/Doctoralia interface. During booking flow there’s no additional layer of check if the slot is still available. If you want to have such check - jump to real-time communication section to find out more.</p>
+</section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 09 Jan 2019</p><script>/* eslint-env browser */
+/* eslint quotes: [2, "single"] */
+'use strict';
+
+/*
+  Determine if a string ends with another string.
+*/
+function endsWith(str, suffix) {
+    return str.indexOf(suffix, str.length - suffix.length) !== -1;
+}
+
+/*
+  Get a list of direct child elements by class name.
+*/
+function childrenByClass(element, name) {
+  var filtered = [];
+
+  for (var i = 0; i < element.children.length; i++) {
+    var child = element.children[i];
+    var classNames = child.className.split(' ');
+    if (classNames.indexOf(name) !== -1) {
+      filtered.push(child);
+    }
+  }
+
+  return filtered;
+}
+
+/*
+  Get an array [width, height] of the window.
+*/
+function getWindowDimensions() {
+  var w = window,
+      d = document,
+      e = d.documentElement,
+      g = d.body,
+      x = w.innerWidth || e.clientWidth || g.clientWidth,
+      y = w.innerHeight || e.clientHeight || g.clientHeight;
+
+  return [x, y];
+}
+
+/*
+  Collapse or show a request/response example.
+*/
+function toggleCollapseButton(event) {
+    var button = event.target.parentNode;
+    var content = button.parentNode.nextSibling;
+    var inner = content.children[0];
+
+    if (button.className.indexOf('collapse-button') === -1) {
+      // Clicked without hitting the right element?
+      return;
+    }
+
+    if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+        // Currently showing, so let's hide it
+        button.className = 'collapse-button';
+        content.style.maxHeight = '0px';
+    } else {
+        // Currently hidden, so let's show it
+        button.className = 'collapse-button show';
+        content.style.maxHeight = inner.offsetHeight + 12 + 'px';
+    }
+}
+
+function toggleTabButton(event) {
+    var i, index;
+    var button = event.target;
+
+    // Get index of the current button.
+    var buttons = childrenByClass(button.parentNode, 'tab-button');
+    for (i = 0; i < buttons.length; i++) {
+        if (buttons[i] === button) {
+            index = i;
+            button.className = 'tab-button active';
+        } else {
+            buttons[i].className = 'tab-button';
+        }
+    }
+
+    // Hide other tabs and show this one.
+    var tabs = childrenByClass(button.parentNode.parentNode, 'tab');
+    for (i = 0; i < tabs.length; i++) {
+        if (i === index) {
+            tabs[i].style.display = 'block';
+        } else {
+            tabs[i].style.display = 'none';
+        }
+    }
+}
+
+/*
+  Collapse or show a navigation menu. It will not be hidden unless it
+  is currently selected or `force` has been passed.
+*/
+function toggleCollapseNav(event, force) {
+    var heading = event.target.parentNode;
+    var content = heading.nextSibling;
+    var inner = content.children[0];
+
+    if (heading.className.indexOf('heading') === -1) {
+      // Clicked without hitting the right element?
+      return;
+    }
+
+    if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+      // Currently showing, so let's hide it, but only if this nav item
+      // is already selected. This prevents newly selected items from
+      // collapsing in an annoying fashion.
+      if (force || window.location.hash && endsWith(event.target.href, window.location.hash)) {
+        content.style.maxHeight = '0px';
+      }
+    } else {
+      // Currently hidden, so let's show it
+      content.style.maxHeight = inner.offsetHeight + 12 + 'px';
+    }
+}
+
+/*
+  Refresh the page after a live update from the server. This only
+  works in live preview mode (using the `--server` parameter).
+*/
+function refresh(body) {
+    document.querySelector('body').className = 'preload';
+    document.body.innerHTML = body;
+
+    // Re-initialize the page
+    init();
+    autoCollapse();
+
+    document.querySelector('body').className = '';
+}
+
+/*
+  Determine which navigation items should be auto-collapsed to show as many
+  as possible on the screen, based on the current window height. This also
+  collapses them.
+*/
+function autoCollapse() {
+  var windowHeight = getWindowDimensions()[1];
+  var itemsHeight = 64; /* Account for some padding */
+  var itemsArray = Array.prototype.slice.call(
+    document.querySelectorAll('nav .resource-group .heading'));
+
+  // Get the total height of the navigation items
+  itemsArray.forEach(function (item) {
+    itemsHeight += item.parentNode.offsetHeight;
+  });
+
+  // Should we auto-collapse any nav items? Try to find the smallest item
+  // that can be collapsed to show all items on the screen. If not possible,
+  // then collapse the largest item and do it again. First, sort the items
+  // by height from smallest to largest.
+  var sortedItems = itemsArray.sort(function (a, b) {
+    return a.parentNode.offsetHeight - b.parentNode.offsetHeight;
+  });
+
+  while (sortedItems.length && itemsHeight > windowHeight) {
+    for (var i = 0; i < sortedItems.length; i++) {
+      // Will collapsing this item help?
+      var itemHeight = sortedItems[i].nextSibling.offsetHeight;
+      if ((itemsHeight - itemHeight <= windowHeight) || i === sortedItems.length - 1) {
+        // It will, so let's collapse it, remove its content height from
+        // our total and then remove it from our list of candidates
+        // that can be collapsed.
+        itemsHeight -= itemHeight;
+        toggleCollapseNav({target: sortedItems[i].children[0]}, true);
+        sortedItems.splice(i, 1);
+        break;
+      }
+    }
+  }
+}
+
+/*
+  Initialize the interactive functionality of the page.
+*/
+function init() {
+    var i, j;
+
+    // Make collapse buttons clickable
+    var buttons = document.querySelectorAll('.collapse-button');
+    for (i = 0; i < buttons.length; i++) {
+        buttons[i].onclick = toggleCollapseButton;
+
+        // Show by default? Then toggle now.
+        if (buttons[i].className.indexOf('show') !== -1) {
+            toggleCollapseButton({target: buttons[i].children[0]});
+        }
+    }
+
+    var responseCodes = document.querySelectorAll('.example-names');
+    for (i = 0; i < responseCodes.length; i++) {
+        var tabButtons = childrenByClass(responseCodes[i], 'tab-button');
+        for (j = 0; j < tabButtons.length; j++) {
+            tabButtons[j].onclick = toggleTabButton;
+
+            // Show by default?
+            if (j === 0) {
+                toggleTabButton({target: tabButtons[j]});
+            }
+        }
+    }
+
+    // Make nav items clickable to collapse/expand their content.
+    var navItems = document.querySelectorAll('nav .resource-group .heading');
+    for (i = 0; i < navItems.length; i++) {
+        navItems[i].onclick = toggleCollapseNav;
+
+        // Show all by default
+        toggleCollapseNav({target: navItems[i].children[0]});
+    }
+}
+
+// Initial call to set up buttons
+init();
+
+window.onload = function () {
+    autoCollapse();
+    // Remove the `preload` class to enable animations
+    document.querySelector('body').className = '';
+};
+</script></body></html>
