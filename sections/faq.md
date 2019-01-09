@@ -8,7 +8,7 @@ There are 2 situations where we might not return doctor in the response to GET r
 
 What does it mean? In order to launch calendar in our platform, doctor's profile needs to be premium (paid). You can quite easily check it -> just go to facility profile on Docplanner/Doctoralia service and check the list of doctors.  Make sure that doctor has **GOLD** badge
 
-<img src="../../images/faq1.png" width="100%">
+<img src="images/faq1.png" width="100%">
 
 **2) Doctor is not linked to the clinic**
 
@@ -16,11 +16,11 @@ In order to return doctor object in GET request, doctor needs to be linked to th
 
 Go to facility profile in Docplanner/Doctoralia service and check if doctor appears on the list of professionals:
 
-<img src="../../images/faq2.png" width="100%">
+<img src="images/faq2.png" width="100%">
 
 If the desired professional doesn't appear there - just go to his/her address edition section on individual doctor's profile and check if the box "Copy address from facility profile" is checked.
 
-<img src="../../images/faq3.png" width="100%">
+<img src="images/faq3.png" width="100%">
 
 <h2>Address_ID I was using is no longer valid - what should I do?</h2>
 
@@ -40,11 +40,11 @@ Slots added via API appear in calendar configuration of each doctor. You can che
 
 Look for exceptions:
 
-<img src="../../images/faq4.png" width="100%">
+<img src="images/faq4.png" width="100%">
 
 After expanding you'll be able to see specific dates with schedules:
 
-<img src="../../images/faq5.png" width="100%">
+<img src="images/faq5.png" width="100%">
 
 <h2>I want to flush calendar configuration - will it affect already booked visits?</h2>
 

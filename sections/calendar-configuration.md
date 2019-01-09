@@ -52,7 +52,7 @@ On November 14th however, the doctor is up to bookings between 16:00 and 19:00 a
 
 It's important to understand, that specific `address_service_id` attached to slots accordingly determines what services will be available for booking. In Docplanner/Doctoralia interface, on the first step of booking, we allow user to choose service from dropdown.  Below you'll find an example of time slot with 6 address_services attached. 
 
-<img src="../../images/calendar-configuration1.png" width="100%">
+<img src="images/calendar-configuration1.png" width="100%">
 
 ## Break during the day?
 

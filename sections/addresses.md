@@ -4,13 +4,13 @@ Address is a specific parameter which allows us to identify particular **doctor*
 
 Let's investigate a case of Test Hospital - there are 2 branches of the hospital in 2 separate locations (as on image below)
 
-<img src="../../images/addresses1.png" width="100%">
+<img src="images/addresses1.png" width="100%">
 
 Both of them have use the same **facility_id**. In order to identify which location you're referring to we need **address_id** parameter. 
 
 So if there's a situation where doctor has 2 addresses in the same facility (showed below), **address_id** becomes unique identifier.
 
-<img src="../../images/addresses2.png" width="100%">
+<img src="images/addresses2.png" width="100%">
 
 Address is a doctor-specific attribute, so in order to get list of doctor's addresses you need to call our endpoint:
 

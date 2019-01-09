@@ -14,7 +14,7 @@ Don't worry - we have it covered. In justified cases we have real-time booking f
 
 On the image below we're described the flow:
 
-<img src="../../images/real-time1.png" width="100%">
+<img src="images/real-time1.png" width="100%">
 
 The additional call (`slot-booking`) is meant to double-check the availibility of slot. We'll send it to the external system before displaying success screen (waiting for the response). The request expects 2XX status code to finish the transaction - with any other status code, we won't allow user to complete the transaction by throwing an error. 
 

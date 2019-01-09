@@ -78,7 +78,7 @@
 <p>Here’s a sample request to authorize (point 1 from the Recommended order of calls list)</p>
 <pre><code class="language-http">curl -u {client_id}:{client_secret} https://www.{domain}/oauth/v2/token -d 'grant_type=client_credentials&amp;scope=integration'</code></pre>
 </section><section id="facilities" class="resource-group"><h2 class="group-heading">Facilities <a href="#facilities" class="permalink">&para;</a></h2><p>Once we’ll grant you access to API Client you’ll be able to perform several operations on all related objects. The most extensive one is a Facility (or clinic if you prefer).  There’s no limit of facilities among one API client - thanks to one set of Client Credentials you can access one facility, few facilities or a facility chain. The distinctive value which allows to identify a facility is facility_id. Each object (as one presented on image below) will have it’s unique ID.</p>
-<img src="../../images/facilities1.png" width="100%">
+<img src="images/facilities1.png" width="100%">
 <h2 id="header-how-to-get-list-of-facilities?">How to get list of facilities? <a class="permalink" href="#header-how-to-get-list-of-facilities?" aria-hidden="true">¶</a></h2>
 <p>No rocket science here - all you need to do is call proper endpoint:</p>
 <pre><code class="language-http">https://www.{domain}/api/v3/integration/facilities</code></pre>
@@ -127,10 +127,10 @@
 <h1 id="header-group-addresses">Group Addresses <a class="permalink" href="#header-group-addresses" aria-hidden="true">¶</a></h1>
 <p>Address is a specific parameter which allows us to identify particular <strong>doctor</strong> in a specific <strong>facility</strong>, one can say that address parameter is a combination of doctor and facility object. One doctor can have multiple addresses but each will have unique <strong>address_id</strong>.  Since we’re already using <strong>doctor_id</strong> and <strong>facililty_id</strong> parameter - what’s the purpose of additional value used for the requests? Here’s the explanation:</p>
 <p>Let’s investigate a case of Test Hospital - there are 2 branches of the hospital in 2 separate locations (as on image below)</p>
-<img src="../../images/addresses1.png" width="100%">
+<img src="images/addresses1.png" width="100%">
 <p>Both of them have use the same <strong>facility_id</strong>. In order to identify which location you’re referring to we need <strong>address_id</strong> parameter.</p>
 <p>So if there’s a situation where doctor has 2 addresses in the same facility (showed below), <strong>address_id</strong> becomes unique identifier.</p>
-<img src="../../images/addresses2.png" width="100%">
+<img src="images/addresses2.png" width="100%">
 <p>Address is a doctor-specific attribute, so in order to get list of doctor’s addresses you need to call our endpoint:</p>
 <p>www.{domain}/api/v3/integration/facilities/{facility_id}/doctors/{doctor_id}/addresses</p>
 <p>Required parameters</p>
@@ -314,7 +314,7 @@
 <p>Let’s analyse given sample. By setting <code>start</code> and <code>end</code> parameters you specify the time range when the slots should appear as available for bookings - in given example, we’re notifying the application that on November 10th doctor is available for online booking between 7:00 and 15:00 and he accepts patients only for address_service_id = 12345. The daily schedule will be divided into 30 mins slots (thanks to <code>duration</code> parameter).</p>
 <p>On November 14th however, the doctor is up to bookings between 16:00 and 19:00 and he is able to service both address_service_id = 67890 - he needs 20 minutes for each patient (again -  duration) and address_service_id = 45678 - he needs 60 minutes for each patient.  Docplanner/Doctoralia application will divide the whole schedule into 20 minutes slots (using greatest common divisor to calculate most optimal schedule). If patient will book 60-mins service, we’ll simply hide 3 such time slots.</p>
 <p>It’s important to understand, that specific <code>address_service_id</code> attached to slots accordingly determines what services will be available for booking. In Docplanner/Doctoralia interface, on the first step of booking, we allow user to choose service from dropdown.  Below you’ll find an example of time slot with 6 address_services attached.</p>
-<img src="../../images/calendar-configuration1.png" width="100%">
+<img src="images/calendar-configuration1.png" width="100%">
 <h2 id="header-break-during-the-day?">Break during the day? <a class="permalink" href="#header-break-during-the-day?" aria-hidden="true">¶</a></h2>
 <p>What if there’s need of creating a break during the day?</p>
 <p>There’s a method such usecase. We call it calendar_breaks. You can use it for any purpose. Adding calendar break results with hiding any available slots in specific address. It can be achieved by calling our endpoint using POST method.</p>
@@ -511,7 +511,7 @@
 <p>What if there’s a higher risk of race condition (huge clinic, lots of bookings)?</p>
 <p>Don’t worry - we have it covered. In justified cases we have real-time booking flow that is applicable per API Client (so doesn’t need to be software-specific setting). In real-time flow we add additional check with one more request sent to 3rd party endpoint at the end of booking flow.</p>
 <p>On the image below we’re described the flow:</p>
-<img src="../../images/real-time1.png" width="100%">
+<img src="images/real-time1.png" width="100%">
 <p>The additional call (<code>slot-booking</code>) is meant to double-check the availibility of slot. We’ll send it to the external system before displaying success screen (waiting for the response). The request expects 2XX status code to finish the transaction - with any other status code, we won’t allow user to complete the transaction by throwing an error.</p>
 <p>We enable real-time booking as a additional configuration on demand. If you want to use the method - contact us at <a href="mailto:integrations@docplanner.com">integrations@docplanner.com</a>.</p>
 <blockquote>
@@ -525,13 +525,13 @@
 <p>There are 2 situations where we might not return doctor in the response to GET request.</p>
 <p><strong>1) Doctor is not commercial</strong></p>
 <p>What does it mean? In order to launch calendar in our platform, doctor’s profile needs to be premium (paid). You can quite easily check it -&gt; just go to facility profile on Docplanner/Doctoralia service and check the list of doctors.  Make sure that doctor has <strong>GOLD</strong> badge</p>
-<img src="../../images/faq1.png" width="100%">
+<img src="images/faq1.png" width="100%">
 <p><strong>2) Doctor is not linked to the clinic</strong></p>
 <p>In order to return doctor object in GET request, doctor needs to be linked to the clinic. There are 2 ways of verifying if that’s valid:</p>
 <p>Go to facility profile in Docplanner/Doctoralia service and check if doctor appears on the list of professionals:</p>
-<img src="../../images/faq2.png" width="100%">
+<img src="images/faq2.png" width="100%">
 <p>If the desired professional doesn’t appear there - just go to his/her address edition section on individual doctor’s profile and check if the box “Copy address from facility profile” is checked.</p>
-<img src="../../images/faq3.png" width="100%">
+<img src="images/faq3.png" width="100%">
 <p><h2>Address_ID I was using is no longer valid - what should I do?</h2></p>
 <p>When doctor has an active calendar, he cannot modify address information, however it’s possible from the interface level to shut down calendar and delete address. If that happens, address won’t be available from API level anymore. Once it happens and there’s no sign of an address in API Client and you’re sure that the facility or the doctor still wants to have his/her calendar integrated - you can either:</p>
 <ul>
@@ -547,9 +547,9 @@
 <p><h2>Where can I check if I successfully added slots to calendar?</h2></p>
 <p>Slots added via API appear in calendar configuration of each doctor. You can check if they were added correctly by entering doctor’s profile ( you need login credentials or access granted by doctor).  They will appear in calendar section under “Exceptions” label (as on picture below)</p>
 <p>Look for exceptions:</p>
-<img src="../../images/faq4.png" width="100%">
+<img src="images/faq4.png" width="100%">
 <p>After expanding you’ll be able to see specific dates with schedules:</p>
-<img src="../../images/faq5.png" width="100%">
+<img src="images/faq5.png" width="100%">
 <p><h2>I want to flush calendar configuration - will it affect already booked visits?</h2></p>
 <p>No. Visits booked by patient via Docplanner/Doctoralia interface can be only removed by cancelling them. Flushing calendar configuration doesn’t affect visits.</p>
 <p><h2>Can I use OAuth Protocol to authorize Callbacks from DP API?</h2></p>
