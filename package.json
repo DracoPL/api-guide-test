@@ -11,7 +11,7 @@
   "devDependencies": {
     "aglio": "^2.2.1",
     "async": "^2.1.1",
-    "lodash": "^4.16.4",
+    "lodash": "^4.17.21",
     "node-fs": "^0.1.7"
   },
   "repository": {
